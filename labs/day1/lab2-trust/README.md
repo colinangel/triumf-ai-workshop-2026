@@ -26,9 +26,10 @@ A reference the model produces from memory can be invented or attached to the wr
 One it finds with search can be real but still not say what the answer claims. Either way,
 you only know by opening it.
 
-1. **Web search off** (in the chat's tools menu). Ask: *"Give me the full reference (authors, journal, year, DOI) for a paper that measured optical crosstalk in Hamamatsu MPPCs."*
-   Open the DOI. Does the paper exist? Is it the paper described? Does it say what the answer claimed?
-2. **Web search on**, in a new chat, same question. Open the source and ask the same three questions.
+1. **From memory.** Ask: *"Without using web search, give me the full reference (authors, journal, year) for a paper that measured optical crosstalk in Hamamatsu MPPCs."*
+   Look the paper up yourself. Does it exist? Is it the paper described? Does it say what the answer claimed?
+2. **With search.** In a new chat: *"Search the web and give me the full reference, with a link, for a paper that measured optical crosstalk in Hamamatsu MPPCs."*
+   Open the link and ask the same three questions.
 
 ## Intermediate
 C and D ask Sonnet the same kind of question 20 times each, 10 at low reasoning effort and 10 at
