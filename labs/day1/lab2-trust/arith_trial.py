@@ -1,4 +1,4 @@
-"""Lab 2 part B: the same unit conversion, done by the model in its head and by code.
+"""Lab 2 part D: the same unit conversion, done by the model in its head and by code.
 
 Asks Claude, with every tool switched off, to convert a pulse integral from ADC
 counts x samples to pC and electrons. It runs the question several times at low and
@@ -6,9 +6,9 @@ at high reasoning effort, prints each answer as it comes back with a right or WR
 verdict, then a tally.
 
     uv run python labs/day1/lab2-trust/arith_trial.py                 # Sonnet, 10 runs each at low and high
-    uv run python labs/day1/lab2-trust/arith_trial.py --n 5 --model haiku
+    uv run python labs/day1/lab2-trust/arith_trial.py --n 5 --model opus
     uv run python labs/day1/lab2-trust/arith_trial.py --show-working   # also print the full working of each wrong answer
-    uv run python labs/day1/lab2-trust/arith_trial.py --json work/lab2b.json   # keep the raw results
+    uv run python labs/day1/lab2-trust/arith_trial.py --json work/lab2d.json   # keep the raw results
 
 Run it from a terminal, or ask Claude Code to run it and explain the table.
 Each run is one `claude -p` call with no tools: on Sonnet, about $0.01 at list price.
@@ -144,7 +144,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     pc, el, secs = _code_answer()
-    print(f"Lab 2 part B: unit chain, {a.model}, tools off, {a.n} runs per setting\n")
+    print(f"Lab 2 part D: unit chain, {a.model}, tools off, {a.n} runs per setting\n")
     print(f"code (Python): {pc:.5f} pC, {el:.4e} electrons, in {secs * 1e6:.0f} microseconds\n")
 
     print("answers as they come back (true value 0.6032 pC, 3.765e6 electrons):")

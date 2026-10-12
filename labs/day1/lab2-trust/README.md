@@ -3,13 +3,13 @@
 **Goal:** find out, by trying it, when a model's answer holds up and when it does not.
 You will use what you see here all workshop to decide what needs checking.
 
-Work in pairs and pick one track. Before each part, tell your partner what you expect
-to happen. Afterwards, note what differed between the answers.
+Work in pairs and pick one track. The parts run from easiest to hardest. Before each part, tell
+your partner what you expect to happen. Afterwards, note what differed between the answers.
 
 | Track | Parts | Where |
 |-------|-------|-------|
-| Beginner | A and C | the Claude app (chat) |
-| Intermediate | B and D | Claude Code, or a terminal |
+| Beginner | A and B | the Claude app (chat) |
+| Intermediate | C and D | Claude Code, or a terminal |
 | Advanced | your own scenario | Claude Code |
 
 ## Beginner
@@ -21,7 +21,7 @@ Open five new chats. In each, ask exactly:
 
 Compare the five answers. What stayed the same, what changed, and does the change matter?
 
-### C. A citation you can check
+### B. A citation you can check
 A reference the model produces from memory can be invented or attached to the wrong paper.
 One it finds with search can be real but still not say what the answer claims. Either way,
 you only know by opening it.
@@ -31,37 +31,43 @@ you only know by opening it.
 2. **Web search on**, in a new chat, same question. Open the source and ask the same three questions.
 
 ## Intermediate
+C and D ask Sonnet the same kind of question 20 times each, 10 at low reasoning effort and 10 at
+high. The only difference: in C the numbers come from a tool, in D the model works them out itself.
+Run them in a terminal, or ask Claude Code to run each one and explain the table. Each answer prints
+as it comes back, marked right or WRONG, then a tally.
 
-### B. The same calculation, in the model and in code
+### C. Numbers from a tool, 20 times
+
+```
+uv run python labs/day1/lab2-trust/tool_trial.py
+```
+
+Claude runs `uv run wfkit info data/sipm_lowlight.parquet` and reports the sample period and the
+preamplifier gain; it may run that one command and nothing else. Were the numbers ever wrong? How many
+different wordings did 20 answers use? Add `--show-replies` to read them all. About 40 seconds.
+
+### D. The same calculation, worked out by the model, 20 times
 Converting a pulse integral to charge is a chain of small steps: ADC counts to millivolts,
 samples to nanoseconds, the 50-ohm input, the preamplifier, then pC to electrons. Current models
 usually get it right. The question is how often they don't, and whether you could tell.
 
-1. **Run the trial**, in a terminal:
+```
+uv run python labs/day1/lab2-trust/arith_trial.py
+```
 
-   ```
-   uv run python labs/day1/lab2-trust/arith_trial.py
-   ```
+Every tool is switched off, so the model does the arithmetic itself. The correct answer is the first
+line of the output, computed by one line of Python in a few microseconds. About 40 seconds.
 
-   or ask Claude Code: *"Run `uv run python labs/day1/lab2-trust/arith_trial.py` and explain the table."*
-   It asks Sonnet the same question 10 times at low reasoning effort and 10 at high, with every
-   tool switched off. Each answer prints as it comes back, marked right or WRONG against the kit's
-   own conversion, then a tally. About 40 seconds.
-2. **Look at the wrong answers.** How far off are they? Rerun with `--show-working` to read each
+1. **Look at the wrong answers.** How far off are they? Rerun with `--show-working` to read each
    wrong answer's full working. Could you have spotted the mistake from the working alone?
-3. **Try Opus** with `--model opus`. Fewer mistakes at low effort, or none? At what cost per answer?
-
-The correct answer is the first line of the output, computed by one line of Python in a few microseconds.
-
-### D. Deterministic tool, stochastic driver
-In Claude Code: *"Run `uv run wfkit info data/sipm_lowlight.parquet` and tell me the sample period and preamplifier gain."*
-Run it twice in fresh sessions. The numbers come from a tool, so they should not change. Did the wording around them?
+2. **Try Opus** with `--model opus`. Fewer mistakes at low effort, or none? At what cost per answer?
+3. **Put C next to D.** Same model, same settings, same number of tries. What made the difference?
 
 ## Advanced: your own scenario
 Pick a calculation or factual question from your own work whose answer you can compute or look up
 independently: a unit conversion, a rate, a resolution, a physical constant, a cross-section.
 
-1. Copy the part B script: `cp labs/day1/lab2-trust/arith_trial.py work/my_trial.py`
+1. Copy the part D script: `cp labs/day1/lab2-trust/arith_trial.py work/my_trial.py`
 2. Ask Claude Code to change `work/my_trial.py` for your question: the prompt (keep "Without using
    any tools" and a fixed `ANSWER:` line), the true value, and `score()` with a tolerance you can defend.
 3. Run it: `uv run python work/my_trial.py`, then again with `--model opus`.
