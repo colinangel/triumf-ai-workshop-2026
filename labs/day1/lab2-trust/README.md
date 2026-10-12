@@ -3,7 +3,7 @@
 **Goal:** find out, by trying it, when a model's answer holds up and when it does not.
 You will use what you see here all workshop to decide what needs checking.
 
-Work in pairs and pick one track. The parts run from easiest to hardest. Before each part, tell
+Work in pairs and pick one track. The tracks run from easiest to hardest. Before each part, tell
 your partner what you expect to happen. Afterwards, note what differed between the answers.
 
 | Track | Parts | Where |
@@ -32,21 +32,11 @@ you only know by opening it.
 
 ## Intermediate
 C and D ask Sonnet the same kind of question 20 times each, 10 at low reasoning effort and 10 at
-high. The only difference: in C the numbers come from a tool, in D the model works them out itself.
-Run them in a terminal, or ask Claude Code to run each one and explain the table. Each answer prints
-as it comes back, marked right or WRONG, then a tally.
+high. The only difference: in C the model works the number out itself, in D it reads it from a tool.
+C shows the problem; D shows the fix. Run them in a terminal, or ask Claude Code to run each one and
+explain the table. Each answer prints as it comes back, marked right or WRONG, then a tally.
 
-### C. Numbers from a tool, 20 times
-
-```
-uv run python labs/day1/lab2-trust/tool_trial.py
-```
-
-Claude runs `uv run wfkit info data/sipm_lowlight.parquet` and reports the sample period and the
-preamplifier gain; it may run that one command and nothing else. Were the numbers ever wrong? How many
-different wordings did 20 answers use? Add `--show-replies` to read them all. About 40 seconds.
-
-### D. The same calculation, worked out by the model, 20 times
+### C. A calculation the model works out itself, 20 times
 Converting a pulse integral to charge is a chain of small steps: ADC counts to millivolts,
 samples to nanoseconds, the 50-ohm input, the preamplifier, then pC to electrons. Current models
 usually get it right. The question is how often they don't, and whether you could tell.
@@ -61,13 +51,26 @@ line of the output, computed by one line of Python in a few microseconds. About 
 1. **Look at the wrong answers.** How far off are they? Rerun with `--show-working` to read each
    wrong answer's full working. Could you have spotted the mistake from the working alone?
 2. **Try Opus** with `--model opus`. Fewer mistakes at low effort, or none? At what cost per answer?
-3. **Put C next to D.** Same model, same settings, same number of tries. What made the difference?
+
+### D. Numbers from a tool, 20 times
+
+```
+uv run python labs/day1/lab2-trust/tool_trial.py
+```
+
+Claude runs `uv run wfkit info data/sipm_lowlight.parquet` and reports the sample period and the
+preamplifier gain; it may run that one command and nothing else. Same model, same settings, same
+number of tries as C. Were the numbers ever wrong? How many different wordings did the 20 answers use?
+Add `--show-replies` to read them all. About 40 seconds.
+
+**Put D next to C.** What made the difference, and what does that tell you about where the numbers
+in your own analysis should come from?
 
 ## Advanced: your own scenario
 Pick a calculation or factual question from your own work whose answer you can compute or look up
 independently: a unit conversion, a rate, a resolution, a physical constant, a cross-section.
 
-1. Copy the part D script: `cp labs/day1/lab2-trust/arith_trial.py work/my_trial.py`
+1. Copy the part C script: `cp labs/day1/lab2-trust/arith_trial.py work/my_trial.py`
 2. Ask Claude Code to change `work/my_trial.py` for your question: the prompt (keep "Without using
    any tools" and a fixed `ANSWER:` line), the true value, and `score()` with a tolerance you can defend.
 3. Run it: `uv run python work/my_trial.py`, then again with `--model opus`.

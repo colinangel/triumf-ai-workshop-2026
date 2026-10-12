@@ -1,4 +1,4 @@
-"""Tests for the Lab 2 part D trial script: the scoring must call real answers right and wrong."""
+"""Tests for the Lab 2 part C trial script: the scoring must call real answers right and wrong."""
 
 import importlib.util
 import sys

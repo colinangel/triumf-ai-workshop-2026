@@ -1,7 +1,7 @@
-"""Lab 2 part C: the same numbers, read from a tool instead of worked out.
+"""Lab 2 part D: the same kind of numbers, read from a tool instead of worked out.
 
 Asks Claude to run `wfkit info` on the sipm_lowlight run and report the sample period and the
-preamplifier gain. It runs the question as many times as part D's calculation trial, at the same
+preamplifier gain. It runs the question as many times as part C's calculation trial, at the same
 low and high reasoning effort, and prints each answer as it comes back, marked right or WRONG
 against the run's metadata, then a tally and how many different wordings the answers used.
 
@@ -104,8 +104,8 @@ def _check_truth() -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--model", default="sonnet")
-    ap.add_argument("--n", type=int, default=10, help="runs per effort setting (default 10, as in part D)")
-    ap.add_argument("--effort", nargs="+", default=["low", "high"], help="effort settings (default: low high, as in part D)")
+    ap.add_argument("--n", type=int, default=10, help="runs per effort setting (default 10, as in part C)")
+    ap.add_argument("--effort", nargs="+", default=["low", "high"], help="effort settings (default: low high, as in part C)")
     ap.add_argument("--jobs", type=int, default=5)
     ap.add_argument("--show-replies", action="store_true", help="after the tally, print every full reply")
     ap.add_argument("--json", type=Path, help="also write every result to this file")
@@ -115,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     _check_truth()
 
-    print(f"Lab 2 part C: numbers from a tool, {a.model}, {a.n} runs per setting\n")
+    print(f"Lab 2 part D: numbers from a tool, {a.model}, {a.n} runs per setting\n")
     print(f"the tool itself (`{COMMAND}`): {TRUE_DT_NS} ns, gain {TRUE_GAIN:g}\n")
     print("answers as they come back:")
     with ThreadPoolExecutor(max_workers=a.jobs) as pool:
