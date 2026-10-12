@@ -3,7 +3,7 @@
 **Goal:** predict, then measure, when a model's answer is stable and when it is not.
 You will use the results all workshop to decide what needs checking.
 
-Work in pairs. Use the Claude app (chat) for parts A to C and Claude Code for part D.
+Work in pairs. Use the Claude app (chat) for parts A and C, and Claude Code or a terminal for parts B and D.
 Record predictions in `worksheet.md` **before** you run anything.
 
 ## A. Same question, five times
@@ -13,15 +13,37 @@ Open five new chats. In each, ask exactly:
 
 Compare the five answers. What stayed the same, what changed, and does the change matter?
 
-## B. Arithmetic in the model versus in code
-In a new chat ask: *"Without using any tools, multiply 7,384,129 by 4,906,557. Give only the number."*
-Then ask Claude Code, in this repository, to compute the same product with Python and show the command.
-Check the answer with `uv run python -c "print(7384129*4906557)"`.
+## B. The same calculation, in the model and in code
+Converting a pulse integral to charge is a chain of small steps: ADC counts to millivolts,
+samples to nanoseconds, the 50-ohm input, the preamplifier, then pC to electrons. Current models
+usually get it right. The question is how often they don't, and whether you could tell.
+
+1. **Predict** on the worksheet: out of 10 tries, how many wrong answers at low reasoning effort,
+   and how many at high?
+2. **Run the trial.** Either in a terminal:
+
+   ```
+   uv run python labs/day1/lab2-trust/arith_trial.py
+   ```
+
+   or ask Claude Code: *"Run `uv run python labs/day1/lab2-trust/arith_trial.py` and explain the table."*
+   It asks Sonnet the same question 10 times at low effort and 10 at high, with every tool switched
+   off, checks each answer against the kit's own conversion, and prints a tally. About 40 seconds.
+3. **Look at the wrong answers.** How far off are they? Could you have spotted one from the working alone?
+4. **Add your row** to the room's results sheet: right and wrong at low and at high.
+
+The correct answer is in the table's first line, computed by one line of Python in a few microseconds.
 
 ## C. A citation you can check
-Ask: *"Give me the full reference (authors, journal, year, DOI) for a paper that measured optical crosstalk in Hamamatsu MPPCs."*
-Open the DOI. Does the paper exist? Does it say what the answer claimed?
-Repeat with web search switched on in the chat. Compare.
+The point: a reference the model produces from memory can be invented or misattributed, and one
+it finds with search can be real but still not say what the answer claims. Either way, you only
+know by opening it.
+
+1. **Web search off** (in the chat's tools menu). Ask: *"Give me the full reference (authors, journal, year, DOI) for a paper that measured optical crosstalk in Hamamatsu MPPCs."*
+   Open the DOI. Does the paper exist? Is it the paper described? Does it say what the answer claimed?
+2. **Web search on**, in a new chat, same question. Open the source again and answer the same three questions.
+
+Record both on the worksheet (C1 and C2).
 
 ## D. Deterministic tool, stochastic driver
 In Claude Code: *"Run `uv run wfkit info data/sipm_lowlight.parquet` and tell me the sample period and preamplifier gain."*
@@ -30,7 +52,7 @@ Run it twice in fresh sessions. The numbers come from a tool, so they should not
 ## Tiers
 - **Beginner:** do A to D as written.
 - **Intermediate:** in A, change one word of the prompt ("fast" to "slow") and see whether the answer tracks the physics or the phrasing.
-- **Advanced:** in Claude Code, run `claude -p "<prompt A>" --output-format json` five times with `--model haiku` and then `--model opus`. Compare cost (`total_cost_usd`) and answer spread. Is the more expensive model more consistent, more correct, or both?
+- **Advanced:** rerun B with `--model haiku --n 5` and `--model opus --n 5`. Is the more expensive model more reliable, or only more expensive? Then in A, run `claude -p "<prompt A>" --output-format json` five times with `--model haiku` and then `--model opus`. Compare cost (`total_cost_usd`) and answer spread. Is the more expensive model more consistent, more correct, or both?
 
 ## Acceptance
 Your worksheet has a prediction and an observed result for each part, and one
