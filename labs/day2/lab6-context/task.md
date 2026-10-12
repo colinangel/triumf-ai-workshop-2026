@@ -1,0 +1,1 @@
+Create work/lab6.py containing a function analyze(path) that measures the SiPM gain from a waveform file in data/. It must return the dictionary described in tests/validation/conftest.py. Make `uv run pytest tests/validation -q -m "not advanced" --impl work.lab6:analyze` pass. Do not modify anything under tests/. When finished, print the test output.

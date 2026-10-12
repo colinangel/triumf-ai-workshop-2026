@@ -1,0 +1,47 @@
+[project]
+name = "wfkit"
+version = "0.1.0"
+description = "Synthetic SiPM/PMT waveforms with ground truth, for the TRIUMF AI and agentic tools workshop"
+readme = "README.md"
+authors = [{ name = "Colin Angel", email = "me@colinangel.tech" }]
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pyarrow>=25.0.1",
+    "scipy>=1.18.1",
+    "uproot>=5.7.7",
+]
+
+[project.optional-dependencies]
+app = [
+    "plotly>=7.1.0",
+    "streamlit>=1.65.0",
+]
+
+[project.scripts]
+wfkit = "wfkit.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.32,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.168.5",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
+addopts = "-ra"
+markers = [
+    "validation: checks an analysis against ground truth (run with: uv run pytest tests/validation)",
+    "advanced: stretch checks for the Advanced tier",
+]
+
+[tool.ruff]
+line-length = 140
