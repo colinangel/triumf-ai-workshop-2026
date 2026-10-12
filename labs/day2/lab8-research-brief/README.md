@@ -4,6 +4,8 @@
 has been traced to a source that a person opened and checked.
 
 No code in this lab. Use the Claude app (desktop or web) with web search on.
+
+**Before you start:** choose **Opus** in the model picker and check that web search is switched on.
 Put your work in a Project so the brief, sources and notes stay together.
 
 ## Pick a question (choose one, or bring your own)

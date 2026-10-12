@@ -3,6 +3,9 @@
 **Goal:** find out, with numbers, what project instructions and skills buy you in
 cost and correctness on a real task.
 
+**Before you start:** Part A works with any model. Part B sets its own: the tool runs every trial with
+`--model sonnet`, as in the command below. To compare models (Intermediate), change only the model.
+
 ## Part A · Watch the context fill (5 min)
 In a session, run `/context`. Then ask Claude to read `src/wfkit/generator.py`
 and run `/context` again. Then ask it to read every file under `src/` and check

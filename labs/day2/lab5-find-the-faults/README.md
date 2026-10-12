@@ -7,6 +7,9 @@ The script is typical of code that has been passed between students for years.
 It runs, produces a plausible-looking spectrum and a believable gain. It is wrong
 in several independent ways. We will not tell you how many.
 
+**Before you start:** this lab runs on **Opus at high effort**. Start Claude Code with
+`claude --model opus --effort high`, or type `/model opus` and `/effort high` in a running session.
+
 ## 1. See the symptoms (10 min)
 
 ```

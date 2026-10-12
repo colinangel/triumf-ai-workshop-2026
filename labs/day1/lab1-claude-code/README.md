@@ -6,6 +6,9 @@ and how to see what the session is costing.
 
 If `uv run python setup/check_setup.py` passed before the workshop, start at step 2.
 
+**Before you start:** this lab uses **Sonnet at medium effort**; step 2 starts Claude Code with it.
+Step 3 has you try other models and effort levels: switch back to Sonnet at medium when you are done.
+
 ## 1. Install and sign in
 Follow `setup/SETUP.md`. Sign in with your TRIUMF Claude Enterprise account. Check:
 
@@ -15,10 +18,10 @@ claude doctor
 ```
 
 ## 2. First session
-From the repository root:
+From the repository root, start Claude Code on Sonnet at medium effort, the setting for this lab:
 
 ```
-claude
+claude --model sonnet --effort medium
 ```
 
 Ask: *"Explain what this repository is for and how its pieces fit together. Cite file paths."*
@@ -28,8 +31,8 @@ Then check two of the paths it gave you actually say what it claims.
 
 | Command | What it does | Try |
 |---------|--------------|-----|
-| `/model` | choose the model (aliases: `opus`, `sonnet`, `haiku`, `best`) | switch to `sonnet`, then back |
-| `/effort` | how much reasoning per turn (`low` to `max`, or `auto`) | set `low`, ask a hard question, set `high`, ask again |
+| `/model` | choose the model (aliases: `opus`, `sonnet`, `haiku`, `best`) | switch to `opus`, then back to `sonnet` |
+| `/effort` | how much reasoning per turn (`low` to `max`, or `auto`) | set `low`, ask a hard question, set `high`, ask again, then back to `medium` |
 | Shift+Tab | cycle permission modes: Manual, accept edits, plan, auto | find plan mode |
 | `/plan <task>` | start in plan mode: Claude proposes before touching files | `/plan add a --quiet flag to the wfkit CLI` |
 | `/context` | what is filling the context window | look before and after reading a big file |

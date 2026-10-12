@@ -12,6 +12,10 @@ your partner what you expect to happen. Afterwards, note what differed between t
 | Intermediate | C and D | Claude Code, or a terminal |
 | Advanced | your own scenario | Claude Code |
 
+**Before you start:** Beginner: in the Claude app, choose **Sonnet** in the model picker. Intermediate and
+Advanced: nothing to set; the scripts run Sonnet at low and at high effort themselves, and the
+steps say when to add `--model opus`.
+
 ## Beginner
 
 ### A. Same question, five times

@@ -3,6 +3,9 @@
 **Goal:** capture one piece of your group's working knowledge as a skill, test
 that it changes behaviour, and know how to share it.
 
+**Before you start:** use **Sonnet at medium effort** for every test run, before and after you revise the
+skill, so a change in behaviour comes from the skill: `claude --model sonnet --effort medium`.
+
 ## 1. Pick the knowledge (5 min)
 Good candidates are things a new student gets wrong in their first month:
 - how your experiment's run files are named and where they live
@@ -32,7 +35,7 @@ Three ways, in order of reach:
 ## Tiers
 - **Beginner:** a skill with conventions and a checklist; both test prompts behave.
 - **Intermediate:** add a script the skill tells Claude to run (for example a units check) and show it being run.
-- **Advanced:** give the skill an evaluation: three prompts with checkable expected outputs, run headless with `claude -p`, scored automatically.
+- **Advanced:** give the skill an evaluation: three prompts with checkable expected outputs, run headless with `claude -p --model sonnet --effort medium`, scored automatically.
 
 ## Acceptance
 The skill folder exists, the two test prompts behave as intended, and you have
