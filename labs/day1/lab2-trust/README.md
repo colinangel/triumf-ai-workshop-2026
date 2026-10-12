@@ -28,8 +28,10 @@ usually get it right. The question is how often they don't, and whether you coul
 
    or ask Claude Code: *"Run `uv run python labs/day1/lab2-trust/arith_trial.py` and explain the table."*
    It asks Sonnet the same question 10 times at low effort and 10 at high, with every tool switched
-   off, checks each answer against the kit's own conversion, and prints a tally. About 40 seconds.
-3. **Look at the wrong answers.** How far off are they? Could you have spotted one from the working alone?
+   off, and prints each answer as it comes back, marked right or WRONG against the kit's own
+   conversion, then a tally. About 40 seconds.
+3. **Look at the wrong answers.** How far off are they? Rerun with `--show-working` to read each wrong
+   answer's full working. Could you have spotted the mistake from the working alone?
 4. **Add your row** to the room's results sheet: right and wrong at low and at high.
 
 The correct answer is in the table's first line, computed by one line of Python in a few microseconds.

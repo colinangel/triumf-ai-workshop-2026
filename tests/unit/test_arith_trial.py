@@ -61,3 +61,23 @@ def test_electron_count_must_agree_too():
     # right charge, wrong electrons: still wrong
     r = trial.score("ANSWER: 0.6032 pC, 37650 electrons")
     assert r.parsed and not r.correct
+
+
+def _result(effort="low", **kw):
+    base = {"effort": effort, "seconds": 6.2, "cost_usd": 0.008, "tool_turns": 0, "answer": "", "reply": ""}
+    return {**base, **kw}
+
+
+def test_live_line_for_a_right_answer():
+    line = trial.live_line(3, _result(answer="0.6032 pC, 3.765e6 electrons", parsed=True, correct=True, factor=1.0))
+    assert "right" in line and "0.6032 pC" in line and "low" in line and "#3" in line and "6 s" in line
+
+
+def test_live_line_for_a_wrong_answer_names_the_factor():
+    line = trial.live_line(7, _result(effort="high", answer="0.00603 pC, 37650 electrons", parsed=True, correct=False, factor=0.01))
+    assert "WRONG" in line and "x0.01" in line and "high" in line
+
+
+def test_live_line_for_a_missing_answer_and_an_error():
+    assert "no ANSWER line" in trial.live_line(1, _result(parsed=False, correct=False))
+    assert "failed" in trial.live_line(2, {"effort": "low", "error": "TimeoutExpired"})

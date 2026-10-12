@@ -2,11 +2,12 @@
 
 Asks Claude, with every tool switched off, to convert a pulse integral from ADC
 counts x samples to pC and electrons. It runs the question several times at low and
-at high reasoning effort, checks every answer against the kit's own conversion, and
-prints a tally.
+at high reasoning effort, prints each answer as it comes back with a right or WRONG
+verdict, then a tally.
 
     uv run python labs/day1/lab2-trust/arith_trial.py                 # Sonnet, 10 runs each at low and high
     uv run python labs/day1/lab2-trust/arith_trial.py --n 5 --model haiku
+    uv run python labs/day1/lab2-trust/arith_trial.py --show-working   # also print the full working of each wrong answer
     uv run python labs/day1/lab2-trust/arith_trial.py --json work/lab2b.json   # keep the raw results
 
 Run it from a terminal, or ask Claude Code to run it and explain the table.
@@ -24,7 +25,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -108,7 +109,18 @@ def run_once(model: str, effort: str, workdir: str) -> dict:
     s = score(data.get("result", ""))
     answer = (re.findall(r"ANSWER:\s*(.+)", data.get("result", "")) or [""])[-1]
     return {"effort": effort, "seconds": round(time.monotonic() - t0, 1), "cost_usd": data.get("total_cost_usd") or 0.0,
-            "tool_turns": data.get("num_turns", 1) - 1, "answer": answer.strip(), **asdict(s)}
+            "tool_turns": data.get("num_turns", 1) - 1, "answer": answer.strip(), "reply": data.get("result", ""), **asdict(s)}
+
+
+def live_line(n: int, r: dict) -> str:
+    """One line per finished run, printed as it arrives."""
+    head = f"  #{n:<3} effort {r['effort']:<5}"
+    if "error" in r:
+        return f"{head} run failed: {r['error'][:70]}"
+    if not r.get("parsed"):
+        return f"{head} no ANSWER line ({r['seconds']:.0f} s)"
+    verdict = "right" if r["correct"] else f"WRONG  x{r['factor']:.3g} of the true charge"
+    return f"{head} {r['answer'][:46]:<46} {verdict}  ({r['seconds']:.0f} s)"
 
 
 def _code_answer() -> tuple[float, float, float]:
@@ -124,6 +136,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--n", type=int, default=10, help="runs per effort setting (default 10)")
     ap.add_argument("--effort", nargs="+", default=["low", "high"], help="effort settings to compare (default: low high)")
     ap.add_argument("--jobs", type=int, default=5, help="runs in parallel (default 5)")
+    ap.add_argument("--show-working", action="store_true", help="after the tally, print the full reply of each wrong answer")
     ap.add_argument("--json", type=Path, help="also write every result to this file")
     a = ap.parse_args(argv)
     if not shutil.which("claude"):
@@ -134,13 +147,15 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Lab 2 part B: unit chain, {a.model}, tools off, {a.n} runs per setting\n")
     print(f"code (Python): {pc:.5f} pC, {el:.4e} electrons, in {secs * 1e6:.0f} microseconds\n")
 
+    print("answers as they come back (true value 0.6032 pC, 3.765e6 electrons):")
     with tempfile.TemporaryDirectory() as work, ThreadPoolExecutor(max_workers=a.jobs) as pool:
         jobs = [pool.submit(run_once, a.model, e, work) for e in a.effort for _ in range(a.n)]
         results = []
-        for i, j in enumerate(jobs, 1):
-            results.append(j.result())
-            print(f"\r  {i}/{len(jobs)} runs done", end="", flush=True)
-    print("\n")
+        for i, j in enumerate(as_completed(jobs), 1):
+            r = j.result()
+            results.append(r)
+            print(live_line(i, r), flush=True)
+    print()
 
     print(f"{'setting':<14}{'right':>6}{'wrong':>7}{'errors':>8}{'median s':>10}{'cost/run':>10}")
     for e in a.effort:
@@ -152,11 +167,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{'effort ' + e:<14}{right:>6}{len(ok) - right:>7}{len(rs) - len(ok):>8}{med:>10.0f}{'$' + format(cost, '.4f'):>10}")
 
     wrong = [r for r in results if "error" not in r and not r["correct"]]
-    if wrong:
-        print("\nwrong answers (true value 0.6032 pC, 3.765e6 electrons):")
-        for r in wrong:
-            how = f"x{r['factor']:.3g} of the true charge" if r["parsed"] else "no ANSWER line"
-            print(f"  effort {r['effort']:<5} {r['answer'][:60]:<60} {how}")
+    if a.show_working:
+        for k, r in enumerate(wrong, 1):
+            print(f"\n--- wrong answer {k} of {len(wrong)}, effort {r['effort']} ---\n{r['reply'].strip()}")
+    elif wrong:
+        print("\nadd --show-working to read the full working of the wrong answers")
     errors = [r for r in results if "error" in r]
     if errors:
         print(f"\n{len(errors)} run(s) failed to complete, for example: {errors[0]['error']}")
