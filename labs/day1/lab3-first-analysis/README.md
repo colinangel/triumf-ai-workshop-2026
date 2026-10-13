@@ -6,8 +6,8 @@ written brief, checked against acceptance criteria you wrote before any code exi
 Data: `data/sipm_lowlight.parquet` (20,000 LED triggers, about 1.5 photoelectrons each).
 Run `uv run wfkit info data/sipm_lowlight.parquet` first and read it.
 
-**Before you start:** this lab runs on **Opus at high effort**, for the whole lab. Start Claude Code with
-`claude --model opus --effort high`, or in a running session type `/model opus` and `/effort high`.
+**Before you start:** this lab runs on **Opus at high effort**, for the whole lab. Set both before
+your first prompt (Lab 1, step 3 shows where in your surface).
 
 ## 1. Write the brief (15 min, no code yet)
 Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. At minimum:
@@ -23,7 +23,7 @@ Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. At minimu
 Swap briefs with your neighbour for two minutes. What would they have guessed wrong?
 
 ## 2. Plan (10 min)
-Start Claude Code in plan mode (`claude --model opus --effort high --permission-mode plan`) and give it your brief: *"Read work/lab3-brief.md and propose a plan. Do not write code yet."*
+Start a new session in Plan mode, on Opus at high effort, and give it your brief: *"Read work/lab3-brief.md and propose a plan. Do not write code yet."*
 Push back on anything vague. Approve when the plan names how each acceptance criterion will be checked.
 
 ## 3. Build and test (30 min)

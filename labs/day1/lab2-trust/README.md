@@ -9,8 +9,8 @@ your partner what you expect to happen. Afterwards, note what differed between t
 | Track | Parts | Where |
 |-------|-------|-------|
 | Beginner | A and B | the Claude app (chat) |
-| Intermediate | C and D | Claude Code, or a terminal |
-| Advanced | your own scenario | Claude Code |
+| Intermediate | C and D | Claude Code (any surface), or a terminal |
+| Advanced | your own scenario | Claude Code (any surface) |
 
 **Before you start:** Beginner: in the Claude app, choose **Sonnet** in the model picker. Intermediate and
 Advanced: nothing to set; the scripts run Sonnet at low and at high effort themselves, and the
@@ -38,8 +38,8 @@ you only know by opening it.
 ## Intermediate
 C and D ask Sonnet the same kind of question 20 times each, 10 at low reasoning effort and 10 at
 high. The only difference: in C the model works the number out itself, in D it reads it from a tool.
-C shows the problem; D shows the fix. Run them in a terminal, or ask Claude Code to run each one and
-explain the table. Each answer prints as it comes back, marked right or WRONG, then a tally.
+C shows the problem; D shows the fix. Run them in a terminal, or ask Claude in your Claude Code session to run each
+one and explain the table. Each answer prints as it comes back, marked right or WRONG, then a tally.
 
 ### C. A calculation the model works out itself, 20 times
 Converting a pulse integral to charge is a chain of small steps: ADC counts to millivolts,

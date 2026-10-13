@@ -7,18 +7,18 @@ and instructions it loads only when a request matches. This repository ships one
 `.claude/skills/waveform-analysis/SKILL.md`. Read it now (3 min).
 
 **Before you start:** use **Sonnet at medium effort** for both runs, and change nothing else between them,
-or the comparison means nothing. Start each session with `claude --model sonnet --effort medium`.
+or the comparison means nothing. Set both at the start of each session (Lab 1, step 3 shows where in your surface).
 
 ## 1. Without the skill
 Move the skill folder aside: `mv .claude/skills .claude/skills_off`
 
-In a **fresh** session (`/clear`, or a new terminal started with the command above):
+In a **new** session, on Sonnet at medium effort:
 
 > Write `work/lab4_off.py` with a function `analyze(path)` that measures the SiPM gain
 > from a waveform file. Return the keys required by tests/validation/conftest.py.
 
 Run `uv run pytest tests/validation -v -m "not advanced" --impl work.lab4_off:analyze`.
-Record: tests passed, turns taken, `/usage` cost.
+Record: tests passed, turns taken, session cost.
 
 ## 2. With the skill
 Restore it: `mv .claude/skills_off .claude/skills`. New session, same prompt but

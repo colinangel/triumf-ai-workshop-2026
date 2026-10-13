@@ -3,8 +3,8 @@
 **Goal:** find out, with numbers, what project instructions and skills buy you in
 cost and correctness on a real task.
 
-**Before you start:** Part A works with any model. Part B sets its own: the tool runs every trial with
-`--model sonnet`, as in the command below. To compare models (Intermediate), change only the model.
+**Before you start:** Part A works with any model. Part B sets its own: the tool runs every trial headless
+on Sonnet (`--model sonnet` in the command below). To compare models (Intermediate), change only that option.
 
 ## Part A · Watch the context fill (5 min)
 In a session, run `/context`. Then ask Claude to read `src/wfkit/generator.py`
@@ -12,7 +12,7 @@ and run `/context` again. Then ask it to read every file under `src/` and check
 once more. Try `/compact` and look again. Note what it kept.
 
 Habits worth adopting:
-- one task per session; `/clear` between unrelated tasks
+- one task per session; start a new session between unrelated tasks
 - point at files by path instead of pasting them
 - ask for a subagent to search a large codebase, so the search results stay out of your session
 - put the stable facts in `CLAUDE.md` once, instead of retyping them
@@ -30,7 +30,7 @@ uv run python tools/token_compare.py \
   --trials 2 --model sonnet
 ```
 
-Each trial takes a few minutes. The room will pool results on the shared sheet.
+Run it in a terminal, or ask Claude to run it. Each trial takes a few minutes. The room will pool results on the shared sheet.
 
 ## Tiers
 - **Beginner:** run with `--trials 1`, record your row in the room's table.

@@ -4,7 +4,7 @@
 that it changes behaviour, and know how to share it.
 
 **Before you start:** use **Sonnet at medium effort** for every test run, before and after you revise the
-skill, so a change in behaviour comes from the skill: `claude --model sonnet --effort medium`.
+skill, so a change in behaviour comes from the skill. Set both at the start of each session (Lab 1, step 3 shows where in your surface).
 
 ## 1. Pick the knowledge (5 min)
 Good candidates are things a new student gets wrong in their first month:
@@ -24,7 +24,7 @@ Write two prompts in `work/lab7-tests.md`:
 - one that **should** use the skill, with what a correct answer must contain
 - one that **should not**
 
-Run both in fresh sessions. Did the skill load when it should, and stay out when it should not? Did the answer meet your criteria? Revise and rerun once.
+Run each in a new session. Did the skill load when it should, and stay out when it should not? Did the answer meet your criteria? Revise and rerun once.
 
 ## 4. Share it (3 min)
 Three ways, in order of reach:
@@ -35,7 +35,7 @@ Three ways, in order of reach:
 ## Tiers
 - **Beginner:** a skill with conventions and a checklist; both test prompts behave.
 - **Intermediate:** add a script the skill tells Claude to run (for example a units check) and show it being run.
-- **Advanced:** give the skill an evaluation: three prompts with checkable expected outputs, run headless with `claude -p --model sonnet --effort medium`, scored automatically.
+- **Advanced:** give the skill an evaluation: three prompts with checkable expected outputs, run headless from a terminal with `claude -p --model sonnet --effort medium`, scored automatically.
 
 ## Acceptance
 The skill folder exists, the two test prompts behave as intended, and you have

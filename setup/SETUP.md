@@ -23,11 +23,19 @@ Open a new terminal, then `uv --version`.
 
 On a shared cluster or a network home directory, install to local disk, not shared storage.
 
-Then run `claude`, choose to sign in with your Claude account, and use your
+Install this even if you will work in the desktop app or VS Code: some lab scripts call
+`claude` from the command line, and neither the app nor the extension installs it.
+
+Then run `claude` once in a terminal, choose to sign in with your Claude account, and use your
 **TRIUMF Claude Enterprise** login. Type `/exit` to leave. Check with `claude doctor`.
 
-Optional: the Claude desktop app (https://claude.ai/download) has Claude Code
-built in, and is used on Day 2 for the research module.
+## 3b. Where you will work
+Pick one; every lab works in all three, and they share your sign-in and the kit's project settings.
+
+- **The Claude desktop app** (https://claude.ai/download), Code tab. The app is also used on
+  Day 2 for the research module, so install it either way.
+- **VS Code**, with the Claude Code extension from the VS Code marketplace. It shows diffs inline.
+- **A terminal**, running `claude` in the kit folder.
 
 ## 4. The workshop kit
 
@@ -48,5 +56,4 @@ CMake 3.20 or later and a C++20 compiler (GCC 11+, Clang 14+, or Xcode command l
 macOS: `xcode-select --install` and `brew install cmake`. Ubuntu/WSL: `sudo apt install build-essential cmake`.
 
 ## Editor
-Any editor works. VS Code has a Claude Code extension that shows diffs inline;
-install it from the VS Code marketplace if you use VS Code.
+Any editor works for reading and editing the kit.
