@@ -10,20 +10,34 @@ Run `uv run wfkit info data/sipm_lowlight.parquet` first and read it.
 your first prompt (Lab 1, step 3 shows where in your surface).
 
 ## 1. Write the brief (15 min, no code yet)
-Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. At minimum:
+Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. You can ask Claude to help
+you read the sources below or tidy your wording, but write the acceptance criteria yourself:
+they are how you will judge its work.
 
-- Goal: charge spectrum and gain (pC per photoelectron, and electrons) for this run.
-- Context: what the metadata says about units; where truth lives and why the analysis must not read it.
-  The metadata also records some of the generator's true values, so say which keys the analysis may use.
-- Constraints: any cut may look only at samples before the gate. A cut on the pulse or the charge
-  changes the population you are measuring.
-- What "right" means: read `tests/validation/test_against_truth.py`. Each test's name, and the
-  comment under most of them, says what it checks. The suite also runs your analysis on the high-light run, so it has to work there too.
-- Acceptance criteria you can check. Suggested starting set:
-  - [ ] a function `analyze(path) -> dict` returning the keys listed in `tests/validation/conftest.py`
-  - [ ] `uv run pytest tests/validation -v -m "not advanced" --impl work.lab3:analyze` passes
-  - [ ] a log-scale charge spectrum, axes with units, saved to `results/lab3_spectrum.png`
-  - [ ] gain reported with an uncertainty
+**Goal:** the charge spectrum and the gain (pC per photoelectron, and electrons) for this run,
+with an uncertainty.
+
+**Context:** everything the agent cannot guess. Answer each question from the place given.
+
+| Question | Where to find the answer |
+|----------|--------------------------|
+| What are the units, and how do ADC counts become pC? | `uv run wfkit info data/sipm_lowlight.parquet`: sample period, gate, baseline window, mV per ADC count, impedance, preamplifier gain |
+| Which way do the pulses go? | the same output: `polarity` |
+| Where is the answer key? | the `.truth` and `.pe` files next to the run, and some keys in `data/sipm_lowlight.json`: open it, and note that `q1_pc` and the `model` block are the generator's true values |
+| What conventions does this lab use? | `.claude/skills/waveform-analysis/SKILL.md`: baseline, sign of the charge, gate, gain fit |
+| How will "right" be judged? | `tests/validation/test_against_truth.py`: each test's name, and the comment under most of them. The high-light run is tested too, so the analysis has to work there |
+
+**Constraints:** which metadata keys the analysis may use, and that it never reads the answer key.
+Any cut may look only at samples before the gate: a cut on the pulse or the charge changes the
+population you are measuring.
+
+**Acceptance criteria** you can check. Suggested starting set:
+- [ ] a function `analyze(path) -> dict` returning the keys listed in `tests/validation/conftest.py`
+- [ ] `uv run pytest tests/validation -v -m "not advanced" --impl work.lab3:analyze` passes
+- [ ] a log-scale charge spectrum, axes with units, saved to `results/lab3_spectrum.png`
+- [ ] gain reported with an uncertainty
+
+**Out of scope** and **Deliverables:** a line each.
 
 Swap briefs with your neighbour for two minutes. What would they have guessed wrong?
 
