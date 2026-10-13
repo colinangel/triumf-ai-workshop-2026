@@ -10,34 +10,31 @@ Run `uv run wfkit info data/sipm_lowlight.parquet` first and read it.
 your first prompt (Lab 1, step 3 shows where in your surface).
 
 ## 1. Write the brief (15 min, no code yet)
-Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. You can ask Claude to help
-you read the sources below or tidy your wording, but write the acceptance criteria yourself:
-they are how you will judge its work.
 
-**Goal:** the charge spectrum and the gain (pC per photoelectron, and electrons) for this run,
-with an uncertainty.
+**First, read what the agent already knows (3 min).** Every session in this folder reads
+`CLAUDE.md`: the environment, the data rules, how to work. The waveform-analysis skill
+(`.claude/skills/waveform-analysis/SKILL.md`) loads for this kind of task: baseline, charge, gain
+fit, cuts. Don't repeat either in your brief. Write each layer of context once, where it lives.
 
-**Context:** everything the agent cannot guess. Answer each question from the place given.
+**Then write only the task (12 min).** Copy `templates/work-brief.md` to `work/lab3-brief.md`.
+For each heading, ask: what does this task need that those two files don't already say?
 
-| Question | Where to find the answer |
-|----------|--------------------------|
-| What are the units, and how do ADC counts become pC? | `uv run wfkit info data/sipm_lowlight.parquet`: sample period, gate, baseline window, mV per ADC count, impedance, preamplifier gain |
-| Which way do the pulses go? | the same output: `polarity` |
-| Where is the answer key? | the `.truth` and `.pe` files next to the run, and some keys in `data/sipm_lowlight.json`: open it, and note that `q1_pc` and the `model` block are the generator's true values |
-| What conventions does this lab use? | `.claude/skills/waveform-analysis/SKILL.md`: baseline, sign of the charge, gate, gain fit |
-| How will "right" be judged? | `tests/validation/test_against_truth.py`: each test's name, and the comment under most of them. The high-light run is tested too, so the analysis has to work there |
+- **Goal:** the charge spectrum and the gain (pC per photoelectron, and electrons) for this run,
+  with an uncertainty, and what the result is for.
+- **Context:** what's specific to this run and this check. Two places to look:
+  - `data/sipm_lowlight.json`: open it. Some keys are the generator's true values. `CLAUDE.md`
+    rules out the truth files but says nothing about these.
+  - `tests/validation/test_against_truth.py`: each test's name, and the comment under most of
+    them, says how the result is judged. Note which runs it uses.
+- **Acceptance criteria** you can check. Suggested starting set:
+  - [ ] a function `analyze(path) -> dict` returning the keys listed in `tests/validation/conftest.py`
+  - [ ] `uv run pytest tests/validation -v -m "not advanced" --impl work.lab3:analyze` passes
+  - [ ] a log-scale charge spectrum, axes with units, saved to `results/lab3_spectrum.png`
+  - [ ] gain reported with an uncertainty
+- **Constraints, Out of scope, Deliverables:** a line each, or "none beyond `CLAUDE.md`".
 
-**Constraints:** which metadata keys the analysis may use, and that it never reads the answer key.
-Any cut may look only at samples before the gate: a cut on the pulse or the charge changes the
-population you are measuring.
-
-**Acceptance criteria** you can check. Suggested starting set:
-- [ ] a function `analyze(path) -> dict` returning the keys listed in `tests/validation/conftest.py`
-- [ ] `uv run pytest tests/validation -v -m "not advanced" --impl work.lab3:analyze` passes
-- [ ] a log-scale charge spectrum, axes with units, saved to `results/lab3_spectrum.png`
-- [ ] gain reported with an uncertainty
-
-**Out of scope** and **Deliverables:** a line each.
+You can ask Claude to help you read these files or tidy your wording, but write the acceptance
+criteria yourself: they are how you will judge its work.
 
 Swap briefs with your neighbour for two minutes. What would they have guessed wrong?
 
