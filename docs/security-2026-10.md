@@ -110,7 +110,7 @@ rely on one filter fail, packages and data files are attack paths, and an agent 
 
 These are questions, not statements of TRIUMF policy.
 
-- Which managed settings does our Claude Enterprise organisation enforce (auto mode, sandbox required, deny rules, allowed MCP servers)?
+- Which managed settings does our Claude account enforce (auto mode, sandbox required, deny rules, allowed MCP servers)?
 - Are DAQ machines and MIDAS web interfaces reachable only from the networks that need them?
 - How should we store and rotate the SSH keys and tokens we use for the Alliance clusters, GitLab and Hugging Face?
 - MIDAS is used by other laboratories: who reviews changes, and are releases signed?

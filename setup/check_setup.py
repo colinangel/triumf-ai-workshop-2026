@@ -95,7 +95,7 @@ def main() -> int:
         if code == 0 and "ready" in out.lower():
             record("PASS", "Claude Code signed in and answering")
         else:
-            record("FAIL", "Claude Code signed in and answering", "run `claude` once and sign in with your TRIUMF Enterprise account")
+            record("FAIL", "Claude Code signed in and answering", "run `claude` once and sign in with your Claude account")
 
     cxx = shutil.which("c++") or shutil.which("g++") or shutil.which("clang++")
     cmake = shutil.which("cmake")

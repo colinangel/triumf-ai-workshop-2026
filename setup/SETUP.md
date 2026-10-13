@@ -1,8 +1,7 @@
 # Setup: do this by Wednesday 14 October
 
-Allow 20 minutes, more on a Mac that needs Apple's command line tools (step 1). If anything fails,
-send the output of the step that failed to the workshop organiser before the day, so it can be
-fixed in advance.
+Allow 20 minutes, more on a Mac that needs Apple's command line tools (step 1). If a step fails and
+you can't fix it, note the error and bring it to the help desk at the start of Day 1.
 
 Supported: macOS, Linux, and Windows through WSL 2 (recommended) or native PowerShell.
 
@@ -36,8 +35,7 @@ On a shared cluster or a network home directory, install to local disk, not shar
 Install this even if you will work in the desktop app or VS Code: some lab scripts call
 `claude` from the command line, and neither the app nor the extension installs it.
 
-Then run `claude` once in a terminal, choose to sign in with your Claude account, and use your
-**TRIUMF Claude Enterprise** login. Type `/exit` to leave. Check with `claude doctor`.
+Then run `claude` once in a terminal and sign in with your **Claude account**. Type `/exit` to leave. Check with `claude doctor`.
 
 ## 4. Where you will work
 Pick one; every lab works in all three, and they share your sign-in and the kit's project settings.
@@ -57,8 +55,8 @@ claude -p "Reply with the word ready"
 ```
 
 The first two print version numbers. The last should print `ready`: that confirms Claude Code is
-installed and signed in to your TRIUMF account. If it prints anything else, send the output to the
-workshop organiser.
+installed and signed in to your Claude account. If it prints anything else, note the error and
+bring it to the help desk at the start of Day 1.
 
 ## 6. Optional, for the C++ challenges
 CMake 3.20 or later and a C++20 compiler (GCC 11+, Clang 14+, or Xcode command line tools).

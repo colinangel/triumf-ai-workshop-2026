@@ -30,7 +30,7 @@ Run each in a new session. Did the skill load when it should, and stay out when 
 Three ways, in order of reach:
 - commit `.claude/skills/<name>/` to your group's repository (everyone who clones it gets it in Claude Code)
 - put it in `~/.claude/skills/` for yourself across all projects
-- ask your Claude Enterprise owner to add it for the organisation (it then appears in the Claude app and syncs to Claude Code)
+- ask your Claude account's administrator to add it for the organisation (it then appears in the Claude app and syncs to Claude Code)
 
 ## Tiers
 - **Beginner:** a skill with conventions and a checklist; both test prompts behave.
