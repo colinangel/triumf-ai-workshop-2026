@@ -14,6 +14,11 @@ Copy `templates/work-brief.md` to `work/lab3-brief.md` and fill it in. At minimu
 
 - Goal: charge spectrum and gain (pC per photoelectron, and electrons) for this run.
 - Context: what the metadata says about units; where truth lives and why the analysis must not read it.
+  The metadata also records some of the generator's true values, so say which keys the analysis may use.
+- Constraints: any cut may look only at samples before the gate. A cut on the pulse or the charge
+  changes the population you are measuring.
+- What "right" means: read `tests/validation/test_against_truth.py`. Each test's name, and the
+  comment under most of them, says what it checks. The suite also runs your analysis on the high-light run, so it has to work there too.
 - Acceptance criteria you can check. Suggested starting set:
   - [ ] a function `analyze(path) -> dict` returning the keys listed in `tests/validation/conftest.py`
   - [ ] `uv run pytest tests/validation -v -m "not advanced" --impl work.lab3:analyze` passes
@@ -27,8 +32,14 @@ Start a new session in Plan mode, on Opus at high effort, and give it your brief
 Push back on anything vague. Approve when the plan names how each acceptance criterion will be checked.
 
 ## 3. Build and test (30 min)
-Let it build. Insist that the validation tests run and that it shows you the output.
-When a test fails, ask what the failure means physically before accepting a fix.
+Approve the plan, choose Auto mode, and watch the tool calls rather than the summary. Expect tests
+first, then the analysis, then a validation run.
+
+- Ask to see the validation output itself, not a description of it.
+- When a test fails, ask what the failure means physically before accepting a fix. If the fix is a
+  new cut, check that it looks only at samples before the gate.
+- Never accept a change to `tests/validation/`.
+- Still failing at 20 minutes? Ask a helper.
 
 ## 4. Check one thing yourself (5 min)
 Pick one event. Ask for the raw ADC sum in the gate, then apply each conversion
