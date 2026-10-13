@@ -4,18 +4,30 @@
 will use for the rest of the workshop: model, effort, permission mode, plan mode,
 and how to see what the session is costing.
 
-If `uv run python setup/check_setup.py` passed before the workshop, start at step 2.
-
 **Before you start:** this lab uses **Sonnet at medium effort**; step 2 sets it.
 Step 3 has you try other models and effort levels: switch back to Sonnet at medium when you are done.
 
-## 1. Install and sign in
-Follow `setup/SETUP.md` and sign in with your TRIUMF Claude Enterprise account.
+## 1. Get the kit
+Git, uv and Claude Code should already be installed and signed in (`setup/SETUP.md`). In a
+terminal, from the folder where you keep your code:
+
+```
+git clone https://github.com/colinangel/triumf-ai-workshop-2026.git
+cd triumf-ai-workshop-2026
+uv sync
+uv run wfkit generate --all
+uv run python setup/check_setup.py
+```
+
+`uv sync` installs Python and every package the kit uses. `wfkit generate` makes the five
+synthetic runs the labs work on. Every line of the check should read PASS or WARN. If one reads
+FAIL, put your hand up now rather than carrying on. If the kit changes during the workshop,
+`git pull` in the kit folder updates it.
 
 Work in whichever surface you prefer: the Code tab of the Claude desktop app, the Claude Code
 extension in VS Code, or a terminal. The labs name each setting; the table in step 3 shows where
 to find it in yours. Some lab scripts call the command-line `claude` themselves, so it must be
-installed whichever surface you use: `uv run python setup/check_setup.py` checks it.
+installed whichever surface you use; the check above includes it.
 
 ## 2. First session
 Open a session in the repository root:

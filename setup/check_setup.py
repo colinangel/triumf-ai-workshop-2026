@@ -1,8 +1,8 @@
-"""Pre-workshop check. Run from the repository root:
+"""Setup check, Lab 1 step 1. Run from the repository root:
 
     uv run python setup/check_setup.py
 
-Prints PASS / WARN / FAIL per item. FAIL items must be fixed before Day 1.
+Prints PASS / WARN / FAIL per item. FAIL items must be fixed before you go on.
 """
 
 from __future__ import annotations

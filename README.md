@@ -3,8 +3,8 @@
 Two days, 16 and 19 October 2026. This repository is everything you work with
 during the hands-on sessions.
 
-**Before the workshop:** follow [`setup/SETUP.md`](setup/SETUP.md) and run
-`uv run python setup/check_setup.py`.
+**Before the workshop:** install git, uv and Claude Code with [`setup/SETUP.md`](setup/SETUP.md).
+**Day 1:** Lab 1 clones this repository and runs `uv run python setup/check_setup.py`.
 
 ## What is here
 
