@@ -63,8 +63,9 @@ actually hand over:
 1. **A one-page result note.** In Claude Code: *"Fill in templates/result-note.md as
    work/lab3-result.md from the validation output, the fit result and the plot. Quote
    every number from a command you run now, not from earlier in this session."*
+   This is what creates `work/lab3-result.md`; the build in step 3 doesn't.
 2. **Three slides for a group meeting.** In the Claude app, start a new chat, attach
-   `work/lab3-result.md` and `results/lab3_spectrum.png`, and ask for a three-slide
+   the note you just made (`work/lab3-result.md`) and `results/lab3_spectrum.png`, and ask for a three-slide
    deck: the result, how it was checked, what it does not cover. If your organisation
    has Claude Slides switched on, it builds an editable deck you can export to
    PowerPoint; otherwise ask for the slide text and paste it into your usual template.
