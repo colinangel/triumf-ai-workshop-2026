@@ -10,19 +10,31 @@ and instructions it loads only when a request matches. This repository ships one
 or the comparison means nothing. Set both at the start of each session (Lab 1, step 3 shows where in your surface).
 
 ## 1. Without the skill
-Move the skill folder aside: `mv .claude/skills .claude/skills_off`
+1. Close any open session in this repository.
+2. Move the skill folder aside: `mv .claude/skills .claude/skills_off`
+3. Start a **new** session and set Sonnet at medium effort.
+4. Paste this prompt:
 
-In a **new** session, on Sonnet at medium effort:
+   > Write `work/lab4_off.py` with a function `analyze(path)` that measures the SiPM gain
+   > from a waveform file. Return the keys required by tests/validation/conftest.py.
+   > Work from the data and the tests only: don't open or copy code from other labs,
+   > `work/` or `results/`.
 
-> Write `work/lab4_off.py` with a function `analyze(path)` that measures the SiPM gain
-> from a waveform file. Return the keys required by tests/validation/conftest.py.
-
-Run `uv run pytest tests/validation -v -m "not advanced" --impl work.lab4_off:analyze`.
-Record: tests passed, turns taken, session cost.
+5. Let it finish. If it asks a question, answer it; count each message you send as a turn.
+   If you see it open another lab's code anyway, note it in the table: that run is not a fair comparison.
+6. Run the tests:
+   `uv run pytest tests/validation -v -m "not advanced" --impl work.lab4_off:analyze`
+7. Record tests passed, turns and session cost (`/usage`, or the usage ring in the desktop app).
 
 ## 2. With the skill
-Restore it: `mv .claude/skills_off .claude/skills`. New session, same prompt but
-writing `work/lab4_on.py`. Did Claude say it was using the skill? Run the same tests with `--impl work.lab4_on:analyze`. Record the same numbers.
+1. Close the session from step 1.
+2. Restore the skill: `mv .claude/skills_off .claude/skills`
+3. Start a **new** session and set Sonnet at medium effort.
+4. Paste the same prompt, with `work/lab4_on.py` in place of `work/lab4_off.py`.
+5. Watch for Claude saying it is using the `waveform-analysis` skill. Count turns as before.
+6. Run the tests:
+   `uv run pytest tests/validation -v -m "not advanced" --impl work.lab4_on:analyze`
+7. Record the same numbers.
 
 ## 3. Compare
 | | Tests passed | Turns | Cost | What it did differently |
